@@ -1,0 +1,17 @@
+{
+    "name": "59891/google-places",
+    "autoload": {
+        "psr-4": {
+            "59891\\GooglePlaces\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mauro Rocca",
+            "email": "mauroroccaf@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "3.*"
+    }
+}
