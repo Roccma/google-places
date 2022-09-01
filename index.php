@@ -18,9 +18,9 @@ $app->get('/nearby-search/{location}/{keywords}/{range}', function ($request, $r
   $results = array();
   while( isset($next_page_token) ){
     $resp = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . $keywords . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token));
-    echo "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . $keywords . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token) . "<br>";
+    //echo "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . $keywords . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token) . "<br>";
     //echo "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . $location . "&radius=" . $range . "&keyword=" . $keywords . "&key=" . $googleKey;
-    echo $resp;
+    //echo $resp;
     $responseJson = json_decode( $resp, true );
     
     $places_ids = array();
