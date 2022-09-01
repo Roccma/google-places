@@ -12,11 +12,15 @@ $app->get('/nearby-search/{location}/{keywords}/{range}', function ($request, $r
   $location = $args['location'];
   $keywords = $args['keywords'];
   $range = $args['range'];
+  $keywords = trim(preg_replace('/\s+/', ' ', $keywords));
+  $keywords = str_replace( ' ', '%20', $keywords );
   $next_page_token = '';
   $results = array();
   while( isset($next_page_token) ){
-    $resp = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . trim($keywords) . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token));
+    $resp = file_get_contents("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . $keywords . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token));
+    echo "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . trim($location) . "&radius=" . trim($range) . "&keyword=" . $keywords . "&key=" . trim($googleKey) . "&pagetoken=" . trim($next_page_token) . "<br>";
     //echo "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" . $location . "&radius=" . $range . "&keyword=" . $keywords . "&key=" . $googleKey;
+    echo $resp;
     $responseJson = json_decode( $resp, true );
     
     $places_ids = array();
@@ -28,7 +32,7 @@ $app->get('/nearby-search/{location}/{keywords}/{range}', function ($request, $r
     
     foreach( $places_ids as $pids ){
       $placeData = file_get_contents( "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey );
-      //echo "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey . "<br>";
+      echo "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey . "<br>";
       $placeDataJson = json_decode( $placeData, true )['result'];
       //echo $placeDataJson['name'] . " " . $placeDataJson['formatted_address'] . " " . $placeDataJson['international_phone_number'] . " " . $placeDataJson['website'] . "<br>";
       $phone = $placeDataJson['international_phone_number'];
