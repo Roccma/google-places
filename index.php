@@ -32,7 +32,7 @@ $app->get('/nearby-search/{location}/{keywords}/{range}', function ($request, $r
     
     foreach( $places_ids as $pids ){
       $placeData = file_get_contents( "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey );
-      echo "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey . "<br>";
+      //echo "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $pids . "&key=" . $googleKey . "<br>";
       $placeDataJson = json_decode( $placeData, true )['result'];
       //echo $placeDataJson['name'] . " " . $placeDataJson['formatted_address'] . " " . $placeDataJson['international_phone_number'] . " " . $placeDataJson['website'] . "<br>";
       $phone = $placeDataJson['international_phone_number'];
